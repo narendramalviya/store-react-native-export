@@ -111,32 +111,7 @@ export default function HomeScreen() {
 		showSnackbar("Added to cart successfully!");
 	};
 
-	const routes = [
-		{
-			key: "home",
-			title: "Home",
-			focusedIcon: "home",
-			unfocusedIcon: "home-outline",
-		},
-		{
-			key: "categories",
-			title: "Categories",
-			focusedIcon: "grid",
-			unfocusedIcon: "grid-outline",
-		},
-		{
-			key: "studio",
-			title: "Studio",
-			focusedIcon: "camera",
-			unfocusedIcon: "camera-outline",
-		},
-		{
-			key: "profile",
-			title: "Profile",
-			focusedIcon: "account",
-			unfocusedIcon: "account-outline",
-		},
-	];
+
 
 	if (0 && !isAdminLoggedIn) {
 		return <LoginScreen setIsAdminLoggedIn={setIsAdminLoggedIn} />;
@@ -172,17 +147,7 @@ export default function HomeScreen() {
 					<ProductList products={products} toggleFavorite={toggleFavorite} addToCart={addToCart} favorites={favorites} setSelectedProduct={setSelectedProduct} />
 				</ScrollView>
 
-				<BottomNavigation
-					navigationState={{ index, routes }}
-					onIndexChange={setIndex}
-					renderScene={BottomNavigation.SceneMap({
-						home: () => null,
-						categories: () => null,
-						studio: () => null,
-						profile: () => null,
-					})}
-					barStyle={styles.bottomNav}
-				/>
+				
 
 				<ProductView selectedProduct={selectedProduct} setSelectedProduct={setSelectedProduct} toggleFavorite={toggleFavorite} addToCart={addToCart} favorites={favorites} />
 
