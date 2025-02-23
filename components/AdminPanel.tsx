@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { View, ScrollView, Image, StyleSheet, Dimensions } from "react-native";
 import { Portal, Dialog, Button, TextInput as PaperInput, Card, IconButton, Title, Paragraph, Chip } from "react-native-paper";
-
+import { initialProducts } from "../api/sanity";
 const AdminPanel = ({ products, setProducts }) => {
 	const [showAddProduct, setShowAddProduct] = useState(false);
 	const [newProduct, setNewProduct] = useState({
@@ -38,8 +38,8 @@ const AdminPanel = ({ products, setProducts }) => {
 			discount: `${Math.round(
 				(1 -
 					parseInt(newProduct.price) /
-						parseInt(newProduct.originalPrice)) *
-					100
+					parseInt(newProduct.originalPrice)) *
+				100
 			)}% OFF`,
 			rating: 0,
 			reviews: 0,

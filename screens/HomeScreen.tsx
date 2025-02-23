@@ -15,6 +15,7 @@ import CategoryList from "../components/CategoryList";
 import AdminPanel from "../components/AdminPanel";
 import ProductView from "../components/ProductView";
 import LoginScreen from "../components/LoginScreen";
+import { useNavigation } from '@react-navigation/native';
 
 const { width } = Dimensions.get("window");
 
@@ -79,6 +80,7 @@ export default function HomeScreen() {
 	const [snackbarMessage, setSnackbarMessage] = useState("");
 	const [index, setIndex] = useState(0);
 	const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(false);
+	const navigation = useNavigation();
 
 	useEffect(() => {
 		const loadData = async () => {
@@ -111,7 +113,14 @@ export default function HomeScreen() {
 		showSnackbar("Added to cart successfully!");
 	};
 
-
+	const viewProduct = (product) => {
+		navigation.navigate('ProductViewScreen', {
+			selectedProduct: product,
+			toggleFavorite,
+			addToCart,
+			favorites,
+		});
+	};
 
 	if (0 && !isAdminLoggedIn) {
 		return <LoginScreen setIsAdminLoggedIn={setIsAdminLoggedIn} />;
@@ -141,13 +150,13 @@ export default function HomeScreen() {
 					</View>
 				</Appbar.Header>
 
-				<ScrollView showsVerticalScrollIndicator={false}>
+				<ScrollView contentContainerStyle={styles.scrollViewContent}>
 					<CategoryList categories={categories} />
 					{showAdmin && <AdminPanel products={products} setProducts={setProducts} />}
-					<ProductList products={products} toggleFavorite={toggleFavorite} addToCart={addToCart} favorites={favorites} setSelectedProduct={setSelectedProduct} />
+					<ProductList products={products} toggleFavorite={toggleFavorite} addToCart={addToCart} favorites={favorites} setSelectedProduct={viewProduct} />
 				</ScrollView>
 
-				
+			
 
 				<ProductView selectedProduct={selectedProduct} setSelectedProduct={setSelectedProduct} toggleFavorite={toggleFavorite} addToCart={addToCart} favorites={favorites} />
 
@@ -173,6 +182,9 @@ const styles = StyleSheet.create({
 	header: {
 		elevation: 4,
 		backgroundColor: "white",
+	},
+	scrollViewContent: {
+		flexGrow: 1,
 	},
 	bottomNav: {
 		backgroundColor: "white",

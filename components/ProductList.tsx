@@ -1,18 +1,20 @@
 import React from "react";
 import { View, StyleSheet, Dimensions } from "react-native";
 import { Card, Title, Paragraph, IconButton, Chip, Button, useTheme } from "react-native-paper";
+import { initialProducts } from "../api/sanity";
+import { useNavigation } from "@react-navigation/native";
 
 const { width } = Dimensions.get("window");
 const CARD_WIDTH = (width - 24) / 2 - 8;
 
 const ProductList = ({ products, toggleFavorite, addToCart, favorites, setSelectedProduct }) => {
 	const theme = useTheme();
-  
+	const navigation = useNavigation();
 	return (
 		<View style={styles.productsGrid}>
 			{products.map((item) => (
 				<Card key={item.id} style={styles.productCard}>
-					<View style={styles.imageContainer}>
+					<View style={styles.imageContainer} onPress={() => navigation.navigate("ProductViewScreen")}>
 						<Card.Cover source={{ uri: item.image }} style={styles.productImage} />
 						<IconButton
 							icon={favorites.includes(item.id) ? "heart" : "heart-outline"}
@@ -40,11 +42,11 @@ const ProductList = ({ products, toggleFavorite, addToCart, favorites, setSelect
 							</Chip>
 						</View>
 					</Card.Content>
-					<Card.Actions style={styles.cardActions}>
+					{/* <Card.Actions style={styles.cardActions}>
 						<Button mode="contained" onPress={() => setSelectedProduct(item)} style={styles.viewButton} labelStyle={styles.viewButtonLabel}>
 							View Details
 						</Button>
-					</Card.Actions>
+					</Card.Actions> */}
 				</Card>
 			))}
 		</View>
